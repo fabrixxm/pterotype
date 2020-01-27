@@ -23,6 +23,11 @@ function handle_transition_comment_status( $new_status, $old_status, $comment ) 
     if ( $existing ) {
         return;
     }
+    
+    if ( $comment->comment_approved === 'spam' ) {
+        return;
+    }
+    
     // This creates a new commenter actor if necessary
     $actor_slug = get_comment_actor_slug( $comment );
     if ( is_wp_error( $actor_slug ) ) {
